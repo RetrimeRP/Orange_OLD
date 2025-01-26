@@ -1,0 +1,8 @@
+TFA.AddFireSound("Weapon_OICW.Fire", { "oicw/oicw_fire1.wav" }, false, "")
+TFA.AddFireSound("Weapon_OICW.Fire2", { "oicw/oicw_glauncher.wav" }, false, "")
+TFA.AddWeaponSound("Weapon_OICW.Draw", "oicw/oicw_gear.wav", "")
+TFA.AddWeaponSound("Weapon_OICW.Empty", "oicw/oicw_empty.wav", "")
+TFA.AddWeaponSound("Weapon_OICW.ClipIn", "oicw/oicw_magin1.wav", "")
+TFA.AddWeaponSound("Weapon_OICW.ClipOut", "oicw/oicw_magout1.wav", "")
+TFA.AddWeaponSound("Weapon_OICW.BoltForward", "oicw/oicw_boltforward.wav", "")
+TFA.AddWeaponSound("Weapon_OICW.BoltBack", "oicw/oicw_boltback.wav", "")
