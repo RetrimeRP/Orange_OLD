@@ -6,10 +6,10 @@ In this file you can find a manual for MySQL configuration and the MySQL config 
 
 
 RP_MySQLConfig.EnableMySQL = true -- Set to true if you want to use an external MySQL database, false if you want to use the built in SQLite database (garrysmod/sv.db) of Garry's mod.
-RP_MySQLConfig.Host = "gamenode.retrime.com" -- This is the IP address of the MySQL host. Make sure the IP address is correct and in quotation marks (" ")
-RP_MySQLConfig.Username = "u1_T5JDi6K7r7" -- This is the username to log in on the MySQL server.
+RP_MySQLConfig.Host = "mysql.retrime.ru" -- This is the IP address of the MySQL host. Make sure the IP address is correct and in quotation marks (" ")
+RP_MySQLConfig.Username = "u1_HbLRkgeJj3" -- This is the username to log in on the MySQL server.
                                 -- contact the owner of the server about the username and password. Make sure it's in quotation marks! (" ")
-RP_MySQLConfig.Password = "!lb.WkjFDuE5i.f=Fq3lkLGt" -- This is the Password to log in on the MySQL server,
+RP_MySQLConfig.Password = "CiG!+g0wUTnj11TnrqMvhxZv" -- This is the Password to log in on the MySQL server,
                                     -- Everyone who has access to FTP on the server can read this password.
                                     -- Make sure you know who to trust. Make sure it's in quotation marks (" ")
 RP_MySQLConfig.Database_name = "s1_darkrp" -- This is the name of the Database on the MySQL server. Contact the MySQL server host to find out what this is

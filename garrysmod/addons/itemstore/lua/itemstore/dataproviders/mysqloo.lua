@@ -2,10 +2,10 @@ local PROVIDER = PROVIDER
 
 -- Edit this with your authentication details
 local auth = {
-	Host = "gamenode.retrime.com",
+	Host = "mysql.retrime.ru",
 	Port = 3306,
-	Username = "u1_hD6Jrwx6Yi",
-	Password = "3ieg62.mqiJQ@1XVqUyPCmk3",
+	Username = "u1_CYvfqpxtz7",
+	Password = "btFe+Bbv=84jrI5^fEuwFqq3",
 	Database = "s1_inventory"
 }
 

@@ -10,17 +10,17 @@ return {
 	--
 	-- MySQL host/ip
 	--
-	Host = "gamenode.retrime.com",
+	Host = "mysql.retrime.ru",
 
 	--
 	-- MySQL username
 	--
-	Username = "u1_0xCkzl68Hc",
+	Username = "u1_1nSZMn7XfK",
 
 	--
 	-- MySQL password
 	--
-	Password = "ce6a4O^!5r9bi^jy+Yo1vx+J",
+	Password = "ffXWGC^f6Q.pfes^Hfub9^vx",
 
 	--
 	-- MySQL database

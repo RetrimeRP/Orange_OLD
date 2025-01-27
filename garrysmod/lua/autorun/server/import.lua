@@ -1,9 +1,9 @@
 -- Конфигурация базы данных (вводить свои данные здесь)
-local databaseHost = "gamenode.retrime.com"
+local databaseHost = "mysql.retrime.ru"
 local databasePort = 3306
 local databaseName = "s1_gas"
-local databaseUser = "u1_hk7UJIgicL"
-local databasePassword = "!Ke^QxVf=0br+agJyjJ4DVBp"
+local databaseUser = "u1_ofQpdPt9Id"
+local databasePassword = "pYRbsB.+McbktJaIxbIZTXn@"
 
 -- Путь к файлу резервной копии
 local backupFilePath = "data/mysqlbackup/" .. databaseName .. "_backup.txt"
