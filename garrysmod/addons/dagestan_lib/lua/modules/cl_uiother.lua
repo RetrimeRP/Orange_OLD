@@ -15,7 +15,7 @@ end
 
 local math_clamp  = math.Clamp
 local Color       = Color
-local mat = Material
+
 local texOutlinedCorner = surface.GetTextureID( "gui/corner16" )
 function draw.RoundedBoxOutlined( bordersize, x, y, w, h, color, bordercol )
 
@@ -61,7 +61,7 @@ function draw.DrawMaterial(material, x, y, w, h, color)
     if isstring(material) then
         local crc = util.CRC(material)
         if not cached_mat[crc] then
-            cached_mat[crc] = mat(material, "smooth")
+            cached_mat[crc] = Material(material, "smooth")
         end
         material = cached_mat[crc]
     end
@@ -141,72 +141,72 @@ auroria.color = {
 
 
 auroria.material = {
-    ["health"] =  mat( "auroria/icons/health.png", "noclamp smooth" ),
-    ["armor"] =  mat( "auroria/icons/armor.png", "noclamp smooth" ),
-    ["feed"] =  mat( "auroria/icons/feed.png", "noclamp smooth" ),
-    ["mic"] =  mat( "auroria/icons/mic.png", "noclamp smooth" ),
-    ["name"] =  mat( "auroria/icons/name.png", "noclamp smooth" ),
-    ["job"] =  mat( "auroria/icons/job.png", "noclamp smooth" ),
-    ["radio"] =  mat( "auroria/icons/radio.png", "noclamp smooth" ),
-    ["bullet"] =  mat( "auroria/icons/bullet.png", "noclamp smooth" ),
-    ["stamina"] =  mat( "auroria/icons/stamina.png", "noclamp smooth" ),
-    ["warning"] =  mat( "auroria/icons/warning.png", "noclamp smooth" ),
-    ["blood"] =  mat( "auroria/icons/blood.png", "noclamp smooth" ),
-    ["skull"] =  mat( "auroria/icons/skull.png", "noclamp smooth" ),
-    ["ellipse"] = mat( "auroria/icons/ellipse.png", "noclamp smooth"),
-    ["star_white"] = mat( "auroria/ui_dodged.png", "noclamp smooth"),
-    ["circle_unfilled"] = mat( "auroria/icons/circle_unfilled.png", "noclamp smooth"),
-    ["user"] = mat("icons/user.png", "noclamp smooth"),
-    ["chat"] = mat("auroria/icons/chat.png", "noclamp smooth"),
-    ["level"] = mat("auroria/icons/level.png", "noclamp smooth"),
-    ["bleeding"] = mat("auroria/icons/bleeding.png", "noclamp smooth"),
-    ["brokenbone"] = mat("auroria/icons/brokenbone.png", "noclamp smooth"),
+    ["health"] =  Material( "auroria/icons/health.png", "noclamp smooth" ),
+    ["armor"] =  Material( "auroria/icons/armor.png", "noclamp smooth" ),
+    ["feed"] =  Material( "auroria/icons/feed.png", "noclamp smooth" ),
+    ["mic"] =  Material( "auroria/icons/mic.png", "noclamp smooth" ),
+    ["name"] =  Material( "auroria/icons/name.png", "noclamp smooth" ),
+    ["job"] =  Material( "auroria/icons/job.png", "noclamp smooth" ),
+    ["radio"] =  Material( "auroria/icons/radio.png", "noclamp smooth" ),
+    ["bullet"] =  Material( "auroria/icons/bullet.png", "noclamp smooth" ),
+    ["stamina"] =  Material( "auroria/icons/stamina.png", "noclamp smooth" ),
+    ["warning"] =  Material( "auroria/icons/warning.png", "noclamp smooth" ),
+    ["blood"] =  Material( "auroria/icons/blood.png", "noclamp smooth" ),
+    ["skull"] =  Material( "auroria/icons/skull.png", "noclamp smooth" ),
+    ["ellipse"] = Material( "auroria/icons/ellipse.png", "noclamp smooth"),
+    ["star_white"] = Material( "auroria/ui_dodged.png", "noclamp smooth"),
+    ["circle_unfilled"] = Material( "auroria/icons/circle_unfilled.png", "noclamp smooth"),
+    ["user"] = Material("icons/user.png", "noclamp smooth"),
+    ["chat"] = Material("auroria/icons/chat.png", "noclamp smooth"),
+    ["level"] = Material("auroria/icons/level.png", "noclamp smooth"),
+    ["bleeding"] = Material("auroria/icons/bleeding.png", "noclamp smooth"),
+    ["brokenbone"] = Material("auroria/icons/brokenbone.png", "noclamp smooth"),
 
-    ["cidcitizen"] =  mat( "auroria/cards/cidcitizen.png", "noclamp smooth" ),
-    ["cidcp"] =  mat( "auroria/cards/cidcp.png", "noclamp smooth" ),
-    ["cidcwu"] =  mat( "auroria/cards/cidcwu.png", "noclamp smooth" ),
-    ["cidlow"] =  mat( "auroria/cards/cidlow.png", "noclamp smooth" ),
-    ["cidmedic"] =  mat( "auroria/cards/cidmedic.png", "noclamp smooth" ),
-    ["cidota"] =  mat( "auroria/cards/cidota.png", "noclamp smooth" ),
+    ["cidcitizen"] =  Material( "auroria/cards/cidcitizen.png", "noclamp smooth" ),
+    ["cidcp"] =  Material( "auroria/cards/cidcp.png", "noclamp smooth" ),
+    ["cidcwu"] =  Material( "auroria/cards/cidcwu.png", "noclamp smooth" ),
+    ["cidlow"] =  Material( "auroria/cards/cidlow.png", "noclamp smooth" ),
+    ["cidmedic"] =  Material( "auroria/cards/cidmedic.png", "noclamp smooth" ),
+    ["cidota"] =  Material( "auroria/cards/cidota.png", "noclamp smooth" ),
 
-    ["alliance"] =  mat( "auroria/icons/alliance.png", "noclamp smooth" ),
-    ["alliance_2"] =  mat( "auroria/icons/alliance_2.png", "noclamp smooth" ),
-    ["bandit"] =  mat( "auroria/icons/bandits.png", "noclamp smooth" ),
-    ["bandit_2"] =  mat( "auroria/icons/bandits_2.png", "noclamp smooth" ),
-    ["citizen"] =  mat( "auroria/icons/what.png", "noclamp smooth" ),
-    ["civil_admin"] =  mat( "auroria/icons/civil.png", "noclamp smooth" ),
-    ["gro"] =  mat( "auroria/icons/gro.png", "noclamp smooth" ),
-    ["gro_cook"] =  mat( "auroria/icons/cook.png", "noclamp smooth" ),
-    ["lambda"] =  mat( "auroria/icons/lambda.png", "noclamp smooth" ),
-    ["undenfiend"] =  mat( "auroria/icons/gun.png", "noclamp smooth" ),
-    ["background"] =  mat( "bg/job.png", "noclamp smooth" ),
+    ["alliance"] =  Material( "auroria/icons/alliance.png", "noclamp smooth" ),
+    ["alliance_2"] =  Material( "auroria/icons/alliance_2.png", "noclamp smooth" ),
+    ["bandit"] =  Material( "auroria/icons/bandits.png", "noclamp smooth" ),
+    ["bandit_2"] =  Material( "auroria/icons/bandits_2.png", "noclamp smooth" ),
+    ["citizen"] =  Material( "auroria/icons/what.png", "noclamp smooth" ),
+    ["civil_admin"] =  Material( "auroria/icons/civil.png", "noclamp smooth" ),
+    ["gro"] =  Material( "auroria/icons/gro.png", "noclamp smooth" ),
+    ["gro_cook"] =  Material( "auroria/icons/cook.png", "noclamp smooth" ),
+    ["lambda"] =  Material( "auroria/icons/lambda.png", "noclamp smooth" ),
+    ["undenfiend"] =  Material( "auroria/icons/gun.png", "noclamp smooth" ),
+    ["background"] =  Material( "bg/job.png", "noclamp smooth" ),
 
-    ["close"] =  mat( "auroria/icons/close.png", "noclamp smooth" ),
-    ["star"] =  mat( "auroria/icons/star.png", "noclamp smooth" ),
-    ["check"] =  mat( "auroria/icons/check.png", "noclamp smooth" ),
-    ["arrow"] =  mat( "auroria/icons/arrow.png", "noclamp smooth" ),
-    ["what"] =  mat( "auroria/icons/quest.png", "noclamp smooth" ),
+    ["close"] =  Material( "auroria/icons/close.png", "noclamp smooth" ),
+    ["star"] =  Material( "auroria/icons/star.png", "noclamp smooth" ),
+    ["check"] =  Material( "auroria/icons/check.png", "noclamp smooth" ),
+    ["arrow"] =  Material( "auroria/icons/arrow.png", "noclamp smooth" ),
+    ["what"] =  Material( "auroria/icons/quest.png", "noclamp smooth" ),
 
     -- Донат
-    ["gold"] =  mat( "auroria/icons/gold.png", "noclamp smooth" ),
-    ["gold_bars"] =  mat( "auroria/icons/gold_bars.png", "noclamp smooth" ),
-    ["gold_bar"] =  mat( "auroria/icons/gold_bar.png", "noclamp smooth" ),
+    ["gold"] =  Material( "auroria/icons/gold.png", "noclamp smooth" ),
+    ["gold_bars"] =  Material( "auroria/icons/gold_bars.png", "noclamp smooth" ),
+    ["gold_bar"] =  Material( "auroria/icons/gold_bar.png", "noclamp smooth" ),
 
-    ["overlay"] =  mat( "bg/terminal.jpg", "noclamp smooth" ),
-    ["gradient-u"] =  mat( "vgui/gradient-u", "noclamp smooth" ),
-    ["gradient-up"] =  mat( "vgui/gradient_up", "noclamp smooth" ),
+    ["overlay"] =  Material( "bg/terminal.jpg", "noclamp smooth" ),
+    ["gradient-u"] =  Material( "vgui/gradient-u", "noclamp smooth" ),
+    ["gradient-up"] =  Material( "vgui/gradient_up", "noclamp smooth" ),
 
-    ["gradient-l"] =  mat( "vgui/gradient-r", "noclamp smooth" ),
-    ["gradient-r"] =  mat( "vgui/gradient-l", "noclamp smooth" ),
+    ["gradient-l"] =  Material( "vgui/gradient-r", "noclamp smooth" ),
+    ["gradient-r"] =  Material( "vgui/gradient-l", "noclamp smooth" ),
 
     --Icons
-    ["management"] =  mat( "auroria/icons/management.png", "noclamp smooth" ),
-    ["materials"] =  mat( "auroria/icons/materials.png", "noclamp smooth" ),
-    ["speed"] =  mat( "auroria/icons/speed.png", "noclamp smooth" ),
-    ["sound"] =  mat( "auroria/icons/sound.png", "noclamp smooth" ),
-    ["cooler"] =  mat( "auroria/icons/cooler.png", "noclamp smooth" ),
-    ["inventory"] =  mat( "auroria/icons/inventory.png", "noclamp smooth" ),
+    ["management"] =  Material( "auroria/icons/management.png", "noclamp smooth" ),
+    ["materials"] =  Material( "auroria/icons/materials.png", "noclamp smooth" ),
+    ["speed"] =  Material( "auroria/icons/speed.png", "noclamp smooth" ),
+    ["sound"] =  Material( "auroria/icons/sound.png", "noclamp smooth" ),
+    ["cooler"] =  Material( "auroria/icons/cooler.png", "noclamp smooth" ),
+    ["inventory"] =  Material( "auroria/icons/inventory.png", "noclamp smooth" ),
 
-    ["logo"] =  mat( "auroria/material_zvezda.png", "noclamp smooth" ),
+    ["logo"] =  Material( "auroria/material_zvezda.png", "noclamp smooth" ),
 
 }

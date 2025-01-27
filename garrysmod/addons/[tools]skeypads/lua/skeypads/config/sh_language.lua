@@ -365,7 +365,7 @@ languages["turkish"] = { --Turkish translation by POWER (https://www.gmodstore.c
 }
 
 languages["russian"] = { --Russian translation by LOyoujoLI (https://www.gmodstore.com/users/LOyoujoLI)
-    systemName = "sKeypads",
+    systemName = "Кейпады",
 
 
     --Toolgun Strings

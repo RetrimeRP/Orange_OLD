@@ -1,5 +1,5 @@
 sKeypads.Config = {
-    language = "english", -- What language should be used, you can find available languages in the sh_language.lua file.
+    language = "russian", -- What language should be used, you can find available languages in the sh_language.lua file.
 
     door_halo_color = Color(255, 255, 255),
 

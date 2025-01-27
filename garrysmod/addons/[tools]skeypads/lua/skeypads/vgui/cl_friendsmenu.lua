@@ -1,25 +1,45 @@
+local friendsPanel = nil
 
-local friendsPanel
+local function generateFriendsMenu()
+    -- Если панель уже существует, удаляем ее
+    if IsValid(friendsPanel) then
+        friendsPanel:Remove()
+    end
 
-local function generateFriendsMenu(panel)
-    friendsPanel = IsValid(friendsPanel) and friendsPanel or panel
+    -- Создаем новую панель
+    friendsPanel = vgui.Create("DFrame")
+    friendsPanel:SetTitle(sKeypads.Lang.friendsMenuName)
+    friendsPanel:SetSize(600, 550) -- Увеличен размер окна
+    friendsPanel:Center()
+    friendsPanel:SetVisible(true)
+   friendsPanel:SetDraggable(true)
+    friendsPanel:MakePopup()
 
-    panel:ClearControls()
-    friendsPanel:Clear()
+    local panel = vgui.Create("DPanel", friendsPanel)
+    panel:SetPos(10, 30)
+    panel:SetSize(friendsPanel:GetWide() - 20, friendsPanel:GetTall() - 40)
+    panel.Paint = function() end -- Отключаем отрисовку фона
 
     local currentFriends = sKeypads.Friends.getAll()
     local lang = sKeypads.Lang
 
-    friendsPanel:Help(lang.friendsMenuTopHint)
-    friendsPanel:Help("")
+    local helpLabel = vgui.Create("DLabel", panel)
+    helpLabel:SetText(lang.friendsMenuTopHint)
+    helpLabel:SetPos(0, 7)
+    helpLabel:SizeToContents()
 
-    friendsPanel:Help(lang.friendsListTitle)
+    local friendsListTitleLabel = vgui.Create("DLabel", panel)
+    friendsListTitleLabel:SetText(lang.friendsListTitle)
+    friendsListTitleLabel:SetPos(0, helpLabel:GetTall() + 5)
+    friendsListTitleLabel:SizeToContents()
 
-    local friendsList = vgui.Create("DListView")
+    local friendsList = vgui.Create("DListView", panel)
+    friendsList:SetPos(0, friendsListTitleLabel:GetY() + friendsListTitleLabel:GetTall() + 5)
+    friendsList:SetSize(panel:GetWide() - 0, 200)
     friendsList:AddColumn(lang.friendsPlayerSteamID)
     friendsList:AddColumn(lang.friendsPlayerName)
-    friendsList:SetTall(200)
     friendsList:SetMultiSelect(false)
+
 
     for k, v in ipairs(currentFriends) do
         steamworks.RequestPlayerInfo(v, function(name)
@@ -28,11 +48,12 @@ local function generateFriendsMenu(panel)
     end
 
     friendsList:SelectFirstItem()
-    friendsPanel:AddItem(friendsList)
 
-    local remove = vgui.Create("DButton")
-    remove:SetText(lang.friendsRemove)
-    remove.DoClick = function()
+    local removeButton = vgui.Create("DButton", panel)
+    removeButton:SetText(lang.friendsRemove)
+    removeButton:SetPos(0, friendsList:GetY() + friendsList:GetTall() + 5)
+    removeButton:SetSize(150, 25)
+    removeButton.DoClick = function()
         local lineID = friendsList:GetSelectedLine()
         local line = friendsList:GetLine(lineID)
         if not line then return end
@@ -42,13 +63,14 @@ local function generateFriendsMenu(panel)
         sKeypads.Friends.remove(friend)
 
         friendsList:RemoveLine(lineID)
-        generateFriendsMenu(friendsPanel)
+        generateFriendsMenu()
     end
-    friendsPanel:AddItem(remove)
 
-    local addSteam = vgui.Create("DButton")
-    addSteam:SetText(lang.friendsAddSteamID)
-    addSteam.DoClick = function()
+    local addSteamButton = vgui.Create("DButton", panel)
+    addSteamButton:SetText(lang.friendsAddSteamID)
+    addSteamButton:SetPos(removeButton:GetX() + removeButton:GetWide() + 5, removeButton:GetY())
+    addSteamButton:SetSize(150, 25)
+    addSteamButton.DoClick = function()
         Derma_StringRequest(
             lang.friendsAddTitle,
             lang.friendsAddInputString,
@@ -67,61 +89,62 @@ local function generateFriendsMenu(panel)
             lang.friendsAddCancelButton
         )
     end
-    friendsPanel:AddItem(addSteam)
 
-    friendsPanel:Help("")
-    friendsPanel:Help(lang.friendsAddOnlinePlayer)
+    local addOnlinePlayersLabel = vgui.Create("DLabel", panel)
+    addOnlinePlayersLabel:SetText(lang.friendsAddOnlinePlayer)
+    addOnlinePlayersLabel:SetPos(0, removeButton:GetY() + removeButton:GetTall() + 10)
+    addOnlinePlayersLabel:SizeToContents()
 
     local localPly = LocalPlayer()
     local onlinePlys = false
+    local yOffset = addOnlinePlayersLabel:GetY() + addOnlinePlayersLabel:GetTall() + 5;
 
     for _, v in SortedPairs(player.GetHumans(), function(a, b) return a:Nick() > b:Nick() end) do
         if not IsValid(v) then continue end
         if v == localPly then continue end
 
+        local skip = false
         for k, id in pairs(currentFriends) do
-            if id == v:SteamID64() then goto skip end
+            if id == v:SteamID64() then skip = true; break end
         end
+        if skip then continue end
 
-        local addPlayer = vgui.Create("DButton")
-        addPlayer:SetText(v:Nick())
-        addPlayer.DoClick = function(s)
+        local addPlayerButton = vgui.Create("DButton", panel)
+        addPlayerButton:SetText(v:Nick())
+        addPlayerButton:SetPos(0, yOffset)
+        addPlayerButton:SetSize(150,25)
+        addPlayerButton.DoClick = function()
             local steamid64 = v:SteamID64()
 
             sKeypads.Friends.add(steamid64)
 
-            steamworks.RequestPlayerInfo(steamid64, function(name)
+             steamworks.RequestPlayerInfo(steamid64, function(name)
                 friendsList:AddLine(steamid64, name or "ERROR")
             end)
 
-            s:Remove()
+             addPlayerButton:Remove()
         end
-        friendsPanel:AddItem(addPlayer)
-
+        yOffset = yOffset + addPlayerButton:GetTall() + 5 -- Увеличен отступ между кнопками
         onlinePlys = true
-
-        ::skip::
     end
 
     if not onlinePlys then
-        friendsPanel:ControlHelp(lang.friendsNoPlayersAvail)
+        local noPlayersLabel = vgui.Create("DLabel", panel)
+        noPlayersLabel:SetText(lang.friendsNoPlayersAvail)
+        noPlayersLabel:SetPos(0, yOffset)
+        noPlayersLabel:SizeToContents()
     end
 
-    friendsPanel:Help("")
 
-    local refresh = vgui.Create("DButton")
-    refresh:SetText(lang.friendsRefresh)
-    refresh.DoClick = function(s)
-        generateFriendsMenu(friendsPanel)
+    local refreshButton = vgui.Create("DButton", panel)
+    refreshButton:SetText(lang.friendsRefresh)
+	refreshButton:SetPos(0, panel:GetTall() - 30)
+	refreshButton:SetSize(100, 25)
+    refreshButton.DoClick = function()
+        generateFriendsMenu()
     end
-    friendsPanel:AddItem(refresh)
+    panel:InvalidateLayout(true)
 end
 
-hook.Add("PopulateToolMenu", "sKeypads::PopulateToolMenu", function()
-    spawnmenu.AddToolMenuOption("Utilities", sKeypads.Lang.systemName, sKeypads.Lang.friendsMenuName, sKeypads.Lang.friendsMenuName, "", "", generateFriendsMenu)
-end)
 
-hook.Add("SpawnMenuOpen", "sKeypads::UpdateFriendsMenu", function()
-    if not IsValid(friendsPanel) then return end
-    generateFriendsMenu(friendsPanel)
-end)
+concommand.Add("friends", generateFriendsMenu)

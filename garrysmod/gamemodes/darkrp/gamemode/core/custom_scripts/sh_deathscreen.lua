@@ -74,7 +74,7 @@ if CLIENT then
 			local chance = GetChance(LocalPlayer())
 
 			if chance then
-				surface.PlaySound("music/whatsuppppppxddDDD.mp3")
+				surface.PlaySound("music/combine_harvester.mp3")
 			end
 
 			hook.Add("HUDPaint", "DarkRP_DeathScreen", function()

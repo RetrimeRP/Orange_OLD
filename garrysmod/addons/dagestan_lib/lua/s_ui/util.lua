@@ -176,16 +176,6 @@ function ui.Create(t, f, p)
 
     return v
 end
--- vizit менял
-function CreateFont(data)
-    data = string.Explode('@', data)
-    local ret = surface.CreateFont(data[1], {
-        size = ui.h(tonumber(data[3])),
-        font = data[2],
-        extended = true,
-    })
-    return ret
-end
 
 function ui.StringRequest(title, text, default, cback)
     local m = ui.Create('ui-frame', function(self)

@@ -1,8 +1,0 @@
--- local db = {
---     "",
---     "",
---     "",
---     ""
--- }
--- VIZIT_SCRIPTS.DB = mysqloo.connect(db[1],db[2],db[3],db[4])
--- патом напишу

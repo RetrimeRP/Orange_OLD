@@ -238,7 +238,7 @@ function CITYWORKER.Finish(ply, ent)
     ply:addMoney(pay)
 
     local chance = math.random()
-    if chance < 1 then 
+    if chance < 0.3 then 
         local explosion = ents.Create("env_explosion")
         explosion:SetPos(ent:GetPos())
         explosion:SetOwner(ply)

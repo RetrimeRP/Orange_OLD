@@ -312,7 +312,7 @@ TEAM_DONATE22 = DarkRP.createJob("Распорядитель", {
 	color = Color(255, 0, 0),
 	model = {"models/bo6/frontman/frontman_pm.mdl"},
 	description = "Таинственный распорядитель блуждающий по миру, нанимая потенциальных людей.",
-	weapons = {"weapon_physgun", "gmod_tool", "darkrp_inventory", "tfa_l96", "tfa_vihr", "tfa_magnum", "weapon_physcannon", "darkrp_keys", "darkrp_disguise", "darkrp_hackdevice"},
+	weapons = {"weapon_physgun", "gmod_tool", "darkrp_inventory", "tfa_l96", "tfa_p90", "tfa_magnum", "weapon_physcannon", "darkrp_keys", "darkrp_disguise", "darkrp_hackdevice"},
 	command = "donate2",
 	max = 1,
 	salary = 0,
@@ -328,7 +328,7 @@ TEAM_DONATE22 = DarkRP.createJob("Распорядитель", {
 		return ply:SteamID() == "STEAM_0:0:541451703" or ply:IsSuperAdmin()
 	end,
 	ammo = {
-		["ar2"] = 90,
+		["smg1"] = 90,
 		["357"] = 24,
 		["SniperPenetratedRound"] = 10
 	},
@@ -345,7 +345,7 @@ TEAM_DONATE23 = DarkRP.createJob("Инквизитор", {
 	color = Color(0, 55, 230),
 	model = {"models/mwiii/cybercat/cybercat_pm.mdl"},
 	description = "Скрытый убийца, выполняющий боевые задание.",
-	weapons = {"weapon_physgun", "gmod_tool", "darkrp_inventory", "tfa_vihr", "tfa_l96", "tfa_glock", "weapon_physcannon", "darkrp_keys"},
+	weapons = {"weapon_physgun", "gmod_tool", "darkrp_inventory", "tfa_p90", "tfa_l96", "tfa_glock", "weapon_physcannon", "darkrp_keys"},
 	command = "donate23",
 	max = 1,
 	salary = 0,
