@@ -329,70 +329,66 @@ if CLIENT then
 
 	hook.Add("PlayerBindPress", "Cuffs CuffedInteract", function(ply, bind, pressed)
 		if ply ~= LocalPlayer() then return end
-
+		if ply:KeyDown(IN_SPEED) or ply:KeyDown(IN_WALK) then return end
+	
 		if bind:lower() == "+attack" and pressed then
 			if ply:KeyDown(IN_USE) then
 				local isDragging = false
-
+	
 				for _, c in pairs(ents.FindByClass("weapon_handcuffed")) do
 					if c.GetRopeLength and c.GetKidnapper and c:GetRopeLength() > 0 and c:GetKidnapper() == ply then
 						isDragging = true
 						break
 					end
 				end
-
+	
 				if isDragging then
 					net.Start("Cuffs_TiePlayers")
 					net.SendToServer()
-
 					return true
 				end
 			end
-
+	
 			local tr, cuffs = GetTrace(ply)
-
+	
 			if tr and cuffs:GetCanGag() then
 				local wep = ply:GetActiveWeapon()
-
+	
 				if not (IsValid(wep) and (wep.IsDarkRPArrestStick or wep.IsDarkRPUnarrestStick)) then
 					net.Start("Cuffs_GagPlayer")
 					net.WriteEntity(tr.Entity)
 					net.WriteBit(not cuffs:GetIsGagged())
 					net.SendToServer()
-
 					return true
 				end
 			end
 		elseif bind:lower() == "+attack2" and pressed then
 			local tr, cuffs = GetTrace(ply)
-
+	
 			if tr and cuffs:GetCanBlind() then
 				net.Start("Cuffs_BlindPlayer")
 				net.WriteEntity(tr.Entity)
 				net.WriteBit(not cuffs:GetIsBlind())
 				net.SendToServer()
-
 				return true
 			end
 		elseif bind:lower() == "+reload" and pressed then
 			local tr, cuffs = GetTrace(ply)
-
+	
 			if tr and cuffs:GetRopeLength() > 0 then
 				net.Start("Cuffs_DragPlayer")
 				net.WriteEntity(tr.Entity)
 				net.WriteBit(LocalPlayer() ~= cuffs:GetKidnapper())
 				net.SendToServer()
-
 				return true
 			end
 		elseif bind:lower() == "+use" and pressed then
 			local tr, cuffs = GetTrace(ply)
-
+	
 			if tr then
 				net.Start("Cuffs_FreePlayer")
 				net.WriteEntity(tr.Entity)
 				net.SendToServer()
-
 				return true
 			else
 				local tr = util.TraceLine({
@@ -400,7 +396,7 @@ if CLIENT then
 					endpos = ply:EyePos() + (ply:GetAimVector() * 100),
 					filter = ply
 				})
-
+	
 				if IsValid(tr.Entity) and tr.Entity:GetNWBool("Cuffs_TieHook") then
 					net.Start("Cuffs_UntiePlayers")
 					net.SendToServer()
@@ -408,6 +404,7 @@ if CLIENT then
 			end
 		end
 	end)
+	
 
 	local DragBone = "ValveBiped.Bip01_R_Hand"
 	local LeashBone = "ValveBiped.Bip01_Neck1"
