@@ -1,5 +1,5 @@
 sKeypads = {}
-
+print("test")
 
 -- Fucking hyrogenic. I'm really not happy.
 function sKeypads.printToClient(msg)

@@ -272,7 +272,15 @@ local negr = {
 	["This is what happen when you break the rules"] = {"frontman/thisiswhathappenwhenubreaktherules.wav"},
 	["You must play fair"] = {"frontman/umustplayfair.wav"},
 	["You, people, are horses - horses at the racetrack"] = {"frontman/upeoplearehorses.wav"},
-	["Wallking corpse spotted"] = {"frontman/wallkingcorpsespotted.wav"}
+	["Wallking corpse spotted"] = {"frontman/wallkingcorpsespotted.wav"},
+	["Capturing this objective"] = {"frontman/Capturingthisobjective.wav"},
+	["Every player must play a fair game"] = {"frontman/Everyplayermustplayafairgame"},
+	["Hostile sighted"] = {"frontman/Hostilesighted.wav"},
+	["How unexpected"] = {"frontman/Howunexpected.wav"},
+	["I see you"] = {"frontman/Iseeyou.wav"},
+	["It's over"] = {"frontman/Itsover.wav"},
+	["Once they find out who you are - you die"] = {"frontman/Oncetheyfindoutwhoyouare-youdie.wav"},
+	["This is the frontman speaking"] = {"frontman/Thisisthefrontmanspeaking.wav"}
 }
 
 local german = {

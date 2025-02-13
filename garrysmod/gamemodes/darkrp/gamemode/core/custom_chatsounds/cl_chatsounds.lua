@@ -481,7 +481,15 @@ local negr = {
 	"This is what happen when you break the rules",
 	"You must play fair",
 	"You, people, are horses - horses at the racetrack",
-	"Wallking corpse spotted"
+	"Wallking corpse spotted",
+	"Capturing this objective",
+	"Every player must play a fair game",
+	"Hostile sighted",
+	"How unexpected",
+	"I see you",
+	"It's over",
+	"Once they find out who you are - you die",
+	"This is the frontman speaking"
 }
 
 local german = {

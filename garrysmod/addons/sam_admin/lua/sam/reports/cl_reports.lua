@@ -2,51 +2,13 @@ if SAM_LOADED then return end
 
 local sam = sam
 local netstream = sam.netstream
-local SUI = sam.SUI
 
-local config = sam.config
+local config = sam.config.Reports
 
-local Trim = string.Trim
-
-local muted_var = CreateClientConVar("sam_mute_reports", "0", false, false, "", 0, 1)
-
-local position = config.get_updated("Reports.Position", "Left")
-local max_reports = config.get_updated("Reports.MaxReports", 4)
-local always_show = config.get_updated("Reports.AlwaysShow", true)
-local pad_x = config.get_updated("Reports.XPadding", 5)
-local pad_y = config.get_updated("Reports.YPadding", 5)
-
-local duty_jobs = {}
-config.hook({"Reports.DutyJobs"}, function()
-	local jobs = config.get("Reports.DutyJobs", ""):Split(",")
-	for i = #jobs, 1, -1 do
-		local v = Trim(jobs[i])
-		if v ~= "" then
-			jobs[v] = true
-		end
-		jobs[i] = nil
-	end
-	duty_jobs = jobs
-end)
-
-local commands = {}
-config.hook({"Reports.Commands"}, function()
-	local cmds = config.get("Reports.Commands", ""):Split(",")
-	for i = 1, #cmds do
-		local v = Trim(cmds[i])
-		if v ~= "" then
-			cmds[i] = {
-				name = v,
-				func = function(_, ply)
-					if IsValid(ply) then
-						RunConsoleCommand("sam", v, "#" .. ply:EntIndex())
-					end
-				end
-			}
-		end
-	end
-	commands = cmds
-end)
+for k, v in ipairs(config.DutyRanks) do
+	config.DutyRanks[v] = true
+	config.DutyRanks[k] = nil
+end
 
 local reports = {}
 local queued_reports = {}
@@ -75,7 +37,7 @@ remove_report = function(ply)
 	end
 
 	local panel = report.panel
-	panel:MoveToNewX(position.value == "Right" and ScrW() or -panel:GetWide(), function()
+	panel:MoveToNewX(config.Position == RIGHT and ScrW() or -panel:GetWide(), function()
 		for i = report.pos + 1, #reports do
 			local v = reports[i]
 			v.pos = v.pos - 1
@@ -90,7 +52,7 @@ remove_report = function(ply)
 end
 
 check_queued = function()
-	while (max_reports.value - #reports > 0 and #queued_reports > 0) do
+	while (config.Max - #reports > 0 and #queued_reports > 0) do
 		new_report(table.remove(queued_reports, 1))
 	end
 end
@@ -104,8 +66,22 @@ append_report = function(ply, text)
 	end
 end
 
+local commands = {}
+local add_command = function(command)
+	commands[command] = function(_, ply)
+		if IsValid(ply) then
+			RunConsoleCommand("sam", command, "#" .. ply:EntIndex())
+		end
+	end
+end
+
+add_command("goto")
+add_command("bring")
+add_command("return")
+-- add_command("spectate")
+
 new_report = function(report)
-	if #reports >= max_reports.value then
+	if #reports >= config.Max then
 		return table.insert(queued_reports, report)
 	end
 
@@ -114,8 +90,8 @@ new_report = function(report)
 	local panel = vgui.Create("SAM.Report")
 	panel:SetReport(report)
 
-	for k, v in ipairs(commands) do
-		panel:AddButton(v.name:gsub("^%l", string.upper), v.func)
+	for k, v in pairs(commands) do
+		panel:AddButton(k:gsub("^%l", string.upper), v)
 	end
 
 	local claim = panel:AddButton("Claim", function(self, ply)
@@ -164,8 +140,8 @@ new_report = function(report)
 
 	panel:FixWide()
 
-	local x = pad_x.value
-	if position.value == "Right" then
+	local x = config.XPadding
+	if config.Position == RIGHT then
 		x = (ScrW() - panel:GetWide()) - x
 	end
 
@@ -182,8 +158,6 @@ end
 netstream.Hook("Report", function(ply, comment)
 	if not IsValid(ply) then return end
 
-	if muted_var:GetBool() then return end
-
 	local report = get_report(ply)
 	if not report then
 		report = {
@@ -192,7 +166,7 @@ netstream.Hook("Report", function(ply, comment)
 			comments = {comment}
 		}
 
-		if not always_show.value and not duty_jobs[team.GetName(LocalPlayer():Team())] then
+		if not config.AlwaysShow and not config.DutyRanks[team.GetName(LocalPlayer():Team())] then
 			LocalPlayer():sam_send_message("({S Blue}) {S_2 Red}: {S_3}", {
 				S = "Report", S_2 = ply:Name(), S_3 = comment
 			})
@@ -227,24 +201,41 @@ netstream.Hook("ReportClosed", function(index)
 end)
 
 do
-	local REPORTS_HEADER = SUI.CreateFont("ReportHeader", "Roboto", 14, 540)
-	local REPORT_COMMENT = SUI.CreateFont("ReportComment", "Roboto", 13, 540)
-	local REPORT_BUTTONS = SUI.CreateFont("ReportButtons", "Roboto", 13, 550)
+	surface.CreateFont("SAM.ReportHeaders", {
+		font = "Roboto",
+		antialias = true,
+		size = sam.menu.scale(14),
+		weight = 540
+	})
+
+	surface.CreateFont("SAM.ReportComment", {
+		font = "Roboto",
+		antialias = true,
+		size = sam.menu.scale(13),
+		weight = 540
+	})
+
+	surface.CreateFont("SAM.ReportButtons", {
+		font = "Roboto",
+		antialias = true,
+		size = sam.menu.scale(13),
+		weight = 550
+	})
 
 	local Panel = {}
 
 	function Panel:Init()
-		sui.TDLib.Start()
+		sam.TDLib.Start()
 
 		self:Blur()
 			:Background(Color(30, 30, 30, 240))
 
-		local p_w, p_h = SUI.Scale(300), SUI.Scale(125)
+		local p_w, p_h = sam.menu.scale(300), sam.menu.scale(116)
 		self:SetSize(p_w, p_h)
 
 		local x = p_w * 2
 
-		if position.value == "Right" then
+		if config.Position == RIGHT then
 			x = ScrW() + x
 		else
 			x = -x
@@ -254,27 +245,26 @@ do
 
 		local top_panel = self:Add("Panel")
 		top_panel:Dock(TOP)
-		top_panel:SetTall(SUI.Scale(24))
+		top_panel:SetTall(sam.menu.scale(24))
 		top_panel:Background(Color(60, 60, 60, 200))
 
 		local ply_name = top_panel:Add("DLabel")
 		ply_name:Dock(LEFT)
 		ply_name:DockMargin(5, 0, 0, 0)
 		ply_name:SetTextColor(Color(200, 200, 200))
-		ply_name:SetFont(REPORTS_HEADER)
+		ply_name:SetFont("SAM.ReportHeaders")
 		self.ply_name = ply_name
 
 		local scroll = self:Add("SAM.ScrollPanel")
 		scroll:Dock(FILL)
 		scroll:DockMargin(5, 5, 5, 5)
-		scroll.Paint = nil
 		self.scroll = scroll
 
 		local comment = scroll:Add("DLabel")
 		comment:Dock(TOP)
 		comment:SetText("")
 		comment:SetTextColor(Color(200, 200, 200))
-		comment:SetFont(REPORT_COMMENT)
+		comment:SetFont("SAM.ReportComment")
 		comment:SetMultiline(true)
 		comment:SetWrap(true)
 		comment:SetAutoStretchVertical(true)
@@ -282,14 +272,14 @@ do
 
 		local bottom = self:Add("Panel")
 		bottom:Dock(BOTTOM)
-		bottom:SetTall(SUI.Scale(24))
+		bottom:SetTall(sam.menu.scale(24))
 		self.bottom = bottom
 
-		sui.TDLib.End()
+		sam.TDLib.End()
 	end
 
 	function Panel:GetY()
-		return (self:GetTall() + 5) * (self.report.pos - 1) + pad_y.value
+		return (self:GetTall() + 5) * (self.report.pos - 1) + config.YPadding
 	end
 
 	function Panel:Close()
@@ -300,7 +290,7 @@ do
 		self.claim:SetText(text)
 		self.claim.DoClick = function() end
 
-		self.claim:SUI_TDLib()
+		self.claim:SAM_TDLib()
 			:Background(Color(41, 128, 185, 200))
 
 		timer.Simple(5, function()
@@ -363,7 +353,7 @@ do
 		button:Dock(LEFT)
 		button:SetText(text)
 		button:SetTextColor(Color(200, 200, 200))
-		button:SetFont(REPORT_BUTTONS)
+		button:SetFont("SAM.ReportButtons")
 		button:SetDisabled(true)
 		button:SetCursor("arrow")
 
@@ -416,7 +406,7 @@ do
 		comment:SetText(old_text .. "- " .. text)
 		comment:SizeToContents()
 
-		self.scroll:ScrollToBottom()
+		self.scroll:GetVBar():AnimateTo(comment:GetTall(), 0.3)
 	end
 
 	function Panel:HasReport()
