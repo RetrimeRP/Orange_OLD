@@ -55,7 +55,7 @@ local function GetTrace(ply)
 	end
 
 end
-
+print("kaka")
 local PLAYER = FindMetaTable("Player")
 local ForceJump = {}
 
