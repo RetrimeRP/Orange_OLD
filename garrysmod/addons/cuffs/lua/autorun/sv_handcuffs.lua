@@ -10,7 +10,7 @@
 -------------------------------------
 
 if CLIENT then return end
-
+print("commit test")
 util.AddNetworkString( "Cuffs_GagPlayer" )
 util.AddNetworkString( "Cuffs_BlindPlayer" )
 util.AddNetworkString( "Cuffs_FreePlayer" )
