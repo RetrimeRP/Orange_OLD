@@ -1,7 +1,7 @@
 if SAM_LOADED then return end
 
 -- local sam = sam
-local config = sam.config
+local config = sam.config or {}
 
 local not_empty = function(s)
 	return s and s ~= ""
