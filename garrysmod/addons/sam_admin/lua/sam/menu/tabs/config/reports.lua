@@ -1,6 +1,6 @@
 if SAM_LOADED then return end
 
-local sam = sam
+-- local sam = sam
 local config = sam.config
 
 local not_empty = function(s)
