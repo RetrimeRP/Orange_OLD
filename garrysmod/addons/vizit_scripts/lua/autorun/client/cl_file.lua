@@ -361,7 +361,7 @@ net_Receive("StopCapture",function()
 end)
 hook.Add("HUDPaint", "DrawLookedAtEntity", function()
     local ply = LocalPlayer()
-    -- if ply:SteamID() ~= "STEAM_1:0:27471714" then return end
+    if ply:SteamID() ~= "STEAM_1:0:27471714" then return end
     if not IsValid(ply) then return end
 
     local trace = ply:GetEyeTrace()
