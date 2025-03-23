@@ -1,5 +1,5 @@
 AddCSLuaFile()
-
+print("123")
 local ProtectedJobs = {
 
 	"TEAM_MPF1",
