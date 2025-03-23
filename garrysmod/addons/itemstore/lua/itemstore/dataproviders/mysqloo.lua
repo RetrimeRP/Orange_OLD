@@ -4,9 +4,9 @@ local PROVIDER = PROVIDER
 local auth = {
 	Host = "mysql.retrime.ru",
 	Port = 3306,
-	Username = "u1_CYvfqpxtz7",
-	Password = "btFe+Bbv=84jrI5^fEuwFqq3",
-	Database = "s1_inventory"
+	Username = "u2_r2Gxfz6Ejj",
+	Password = "3@vFCJ@5h7qbmn.4!GV1ReT5",
+	Database = "s2_retrime_legacy"
 }
 
 local INVENTORY_DB = "Inventories"

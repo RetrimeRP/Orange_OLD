@@ -15,15 +15,15 @@ return {
 	--
 	-- MySQL username
 	--
-	Username = "u1_1nSZMn7XfK",
+	Username = "u2_r2Gxfz6Ejj",
 
 	--
 	-- MySQL password
 	--
-	Password = "ffXWGC^f6Q.pfes^Hfub9^vx",
+	Password = "3@vFCJ@5h7qbmn.4!GV1ReT5",
 
 	--
 	-- MySQL database
 	--
-	Database = "s1_sam",
+	Database = "s2_retrime_legacy",
 }

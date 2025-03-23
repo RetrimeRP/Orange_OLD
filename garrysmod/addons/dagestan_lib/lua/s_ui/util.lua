@@ -43,6 +43,17 @@ function ui.h(h)
     return ui.save_h[h]
 end
 
+function CreateFont(data)
+	data = string.Explode('@', data)
+	local ret = surface.CreateFont(data[1], {
+		size = ui.h(tonumber(data[3])),
+		font = data[2],
+		extended = true,
+	})
+	print('Succesfully registred font with name: ' .. data[1] .. ' size: ' .. data[3])
+	return ret
+end
+
 
 -- ui element
 

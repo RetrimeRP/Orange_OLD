@@ -15,7 +15,7 @@ SWEP.Base = "weapon_cuff_base"
 
 SWEP.Category = "Handcuffs"
 SWEP.Author = "my_hat_stinks"
-SWEP.Instructions = "A weak restraint."
+SWEP.Instructions = "Нажмите АЛЬТ или ШИФТ чтобы НЕ взаимодействовать с наручниками"
 
 SWEP.Spawnable = true
 SWEP.AdminOnly = true
